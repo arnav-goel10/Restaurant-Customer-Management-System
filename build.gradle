@@ -71,17 +71,21 @@ dependencies {
 
 shadowJar {
     archiveFileName = 'NomNomNotifier.jar'
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
 }
+
 
 tasks.build {
     dependsOn shadowJar
 }
 
-task stage(dependsOn: ['clean', 'build']) {
+task stage(dependsOn: ['clean', 'shadowJar']) {
     doLast {
         copy {
-            from jar
-            into "$buildDir/stage/lib"
+            from shadowJar.archiveFile
+            into "$buildDir/staged"
         }
     }
 }
