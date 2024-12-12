@@ -77,10 +77,14 @@ tasks.build {
     dependsOn shadowJar
 }
 
-task stage(dependsOn: ['clean', 'build', 'shadowJar']) {
+task stage(dependsOn: ['clean', 'build']) {
     doLast {
-        println 'Stage task executed for Heroku deployment'
+        copy {
+            from jar
+            into "$buildDir/stage/lib"
+        }
     }
 }
+
 
 defaultTasks 'clean', 'test'
