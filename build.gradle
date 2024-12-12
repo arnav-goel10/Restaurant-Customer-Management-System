@@ -48,7 +48,6 @@ task coverage(type: JacocoReport) {
 }
 
 dependencies {
-    String jUnitVersion = '5.9.3'
     String javaFxVersion = '17.0.7'
 
     implementation "org.openjfx:javafx-base:$javaFxVersion"
@@ -59,9 +58,8 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
-
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.3'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.3'
 }
 
 shadowJar {
@@ -72,10 +70,10 @@ tasks.build {
     dependsOn shadowJar
 }
 
-defaultTasks 'clean', 'test' 
-
 task stage(dependsOn: ['clean', 'build', 'shadowJar']) {
     doLast {
         println 'Stage task executed for Heroku deployment'
     }
 }
+
+defaultTasks 'clean', 'test'
