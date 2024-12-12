@@ -73,3 +73,9 @@ tasks.build {
 }
 
 defaultTasks 'clean', 'test' 
+
+task stage(dependsOn: ['clean', 'build', 'shadowJar']) {
+    doLast {
+        println 'Stage task executed for Heroku deployment'
+    }
+}
